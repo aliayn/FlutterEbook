@@ -23,12 +23,21 @@ dependencies:
   share: ^2.0.4
   xml2json: ^5.3.2
   epub_viewer: ^0.2.5
-
+  floor: ^1.2.0
+  freezed_annotation: any
+  dio: ^4.0.4
+  retrofit: any
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^1.0.0
+  floor_generator: ^1.2.0
+  build_runner: any
+  freezed: ^1.1.0
+  retrofit_generator: any
+  json_serializable: any
 
 flutter:
   uses-material-design: true  

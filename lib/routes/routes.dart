@@ -1,3 +1,5 @@
+import 'package:ebook_app/controllers/home/home_binding.dart';
+import 'package:ebook_app/screens/home/home_page.dart';
 import 'package:get/route_manager.dart';
 
 abstract class Routes {
@@ -9,12 +11,12 @@ abstract class Routes {
 }
 
 abstract class AppPages {
-  static String initial = Routes.splash;
+  static String initial = Routes.home;
   static final routes = <GetPage>[
-    // GetPage(
-    //   name: Routes.splash,
-    //   page: () => const SplashScreen(),
-    //   binding: SplashBinding(),
-    // ),
+    GetPage(
+      name: Routes.home,
+      page: () => const HomePage(),
+      binding: HomeBinding(),
+    ),
   ];
 }
