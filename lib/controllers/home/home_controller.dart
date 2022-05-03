@@ -3,12 +3,11 @@ import 'package:get/get.dart';
 
 import '../../models/category.dart';
 import '../../utils/api_request_status.dart';
-import '../../utils/functions.dart';
 
 class HomeController extends BaseController {
   var apiRequestStatus = APIRequestStatus.loading.obs;
-  var top = CategoryFeed();
-  var recent = CategoryFeed();
+  var top = CategoryFeed().obs;
+  var recent = CategoryFeed().obs;
 
   @override
   void onReady() {
@@ -19,19 +18,21 @@ class HomeController extends BaseController {
   getFeeds() async {
     apiRequestStatus(APIRequestStatus.loading);
     try {
-      top = await provider.getPopularApi();
-      recent = await provider.getRecentApi();
+      top(await provider.getPopularApi());
+      recent(await provider.getRecentApi());
       apiRequestStatus(APIRequestStatus.loaded);
     } catch (e) {
-      _checkError(e);
+      checkError(apiRequestStatus, e);
     }
   }
 
-  _checkError(e) {
-    if (Functions.checkConnectionError(e)) {
-      apiRequestStatus(APIRequestStatus.connectionError);
-    } else {
-      apiRequestStatus(APIRequestStatus.error);
+  Future<bool> refreshData() async {
+    try {
+      top(await provider.getPopularApi());
+      recent(await provider.getRecentApi());
+      return Future.value(true);
+    } catch (e) {
+      return Future.value(false);
     }
   }
 

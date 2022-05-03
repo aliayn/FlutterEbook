@@ -17,7 +17,7 @@ Widget _buildBody() => Obx((() => BodyBuilder(
 
 Widget _buildBodyList() {
   return RefreshIndicator(
-    onRefresh: () => controller.getFeeds(),
+    onRefresh: () async => await controller.refreshData(),
     child: ListView(
       children: <Widget>[
         _buildFeaturedSection(),
@@ -60,10 +60,10 @@ _buildFeaturedSection() {
         primary: false,
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
         scrollDirection: Axis.horizontal,
-        itemCount: controller.top.feed?.entry?.length ?? 0,
+        itemCount: controller.top.value.feed?.entry?.length ?? 0,
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
-          Entry entry = controller.top.feed!.entry![index];
+          Entry entry = controller.top.value.feed!.entry![index];
           return Padding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
@@ -88,10 +88,10 @@ _buildGenreSection() {
         primary: false,
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
         scrollDirection: Axis.horizontal,
-        itemCount: controller.top.feed?.link?.length ?? 0,
+        itemCount: controller.top.value.feed?.link?.length ?? 0,
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
-          Link link = controller.top.feed!.link![index];
+          Link link = controller.top.value.feed!.link![index];
 
           // We don't need the tags from 0-9 because
           // they are not categories
@@ -143,9 +143,9 @@ _buildNewSection() {
     padding: const EdgeInsets.symmetric(horizontal: 15.0),
     shrinkWrap: true,
     physics: const NeverScrollableScrollPhysics(),
-    itemCount: controller.recent.feed?.entry?.length ?? 0,
+    itemCount: controller.recent.value.feed?.entry?.length ?? 0,
     itemBuilder: (BuildContext context, int index) {
-      Entry entry = controller.recent.feed!.entry![index];
+      Entry entry = controller.recent.value.feed!.entry![index];
 
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
