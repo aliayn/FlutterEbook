@@ -1,3 +1,4 @@
+import 'package:ebook_app/components/book_card.dart';
 import 'package:ebook_app/controllers/home/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -78,7 +79,10 @@ _buildFeaturedSection() {
   );
 }
 
-_bookComponent(String img, Entry entry) => Container();
+_bookComponent(String img, Entry entry) => BookCard(
+      img: img,
+      entry: entry,
+    );
 
 _buildGenreSection() {
   return SizedBox(
