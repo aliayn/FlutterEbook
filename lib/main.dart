@@ -16,12 +16,12 @@ class App extends GetView {
 
   @override
   Widget build(BuildContext context) => Sizer(
-      builder: ((context, orientation, deviceType) => GetMaterialApp(
-            debugShowCheckedModeBanner: false,
-            getPages: AppPages.routes,
-            initialRoute: AppPages.initial,
-            theme: lightTheme(context),
-            darkTheme: darkTheme(context),
-            themeMode: ThemeService().theme,
-          )));
+        builder: ((context, orientation, deviceType) => GetMaterialApp(
+              debugShowCheckedModeBanner: false,
+              getPages: AppPages.routes,
+              initialRoute: AppPages.initial,
+              theme: lightTheme(context),
+              darkTheme: darkTheme(context),
+              themeMode: ThemeService.instance.theme,
+            )));
 }

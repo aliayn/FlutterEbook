@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class ThemeService {
   final _box = GetStorage();
   final _key = 'isDarkMode';
+
+  ThemeService._() {
+    setStatusStyle();
+    _box.listenKey(_key, (value) => setStatusStyle());
+  }
+
+  static late final ThemeService instance = ThemeService._();
 
   /// Get isDarkMode info from local storage and return ThemeMode
   ThemeMode get theme => isDarkMode() ? ThemeMode.dark : ThemeMode.light;
@@ -19,5 +27,10 @@ class ThemeService {
   switchTheme() {
     Get.changeThemeMode(isDarkMode() ? ThemeMode.light : ThemeMode.dark);
     _saveThemeToBox(!isDarkMode());
+  }
+
+  setStatusStyle() {
+    SystemChrome.setSystemUIOverlayStyle(
+        isDarkMode() ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark);
   }
 }

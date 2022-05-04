@@ -15,7 +15,8 @@ ThemeData lightTheme(context) => ThemeData(
     appBarTheme: const AppBarTheme(
       elevation: 0.0,
     ),
-    textTheme: GoogleFonts.acmeTextTheme(Theme.of(context).textTheme),
+    textTheme: GoogleFonts.acmeTextTheme(Theme.of(context).textTheme)
+        .apply(bodyColor: _darkPrimary, displayColor: _darkPrimary),
     colorScheme: ColorScheme.fromSwatch()
         .copyWith(brightness: Brightness.light, secondary: _lightAccent),
     textSelectionTheme:
@@ -29,7 +30,8 @@ ThemeData darkTheme(context) => ThemeData(
     appBarTheme: const AppBarTheme(
       elevation: 0.0,
     ),
-    textTheme: GoogleFonts.acmeTextTheme(Theme.of(context).textTheme),
+    textTheme: GoogleFonts.acmeTextTheme(Theme.of(context).textTheme)
+        .apply(bodyColor: _lightPrimary, displayColor: _lightPrimary),
     colorScheme: ColorScheme.fromSwatch()
         .copyWith(brightness: Brightness.dark, secondary: _darkAccent),
     textSelectionTheme: const TextSelectionThemeData(cursorColor: _darkAccent));
