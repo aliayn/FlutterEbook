@@ -1,5 +1,6 @@
 import 'package:ebook_app/screens/explore/explore_page.dart';
 import 'package:ebook_app/screens/main/custom_nav_bar_item.dart';
+import 'package:ebook_app/screens/setting/setting_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -28,7 +29,7 @@ Widget mainUI() => StatefulBuilder(
 List<Widget> _buildScreens() => [
     const HomePage(),
     const ExplorePage(),
-    const HomePage(),
+    const SettingPage(),
   ];
 
 List<PersistentBottomNavBarItem> _navBarsItems(context) => [
