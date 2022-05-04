@@ -11,7 +11,7 @@ settingUI() => Scaffold(
     );
 
 _createBody() => ListView.separated(
-    padding: EdgeInsets.symmetric(horizontal: 1.w, vertical: 4.h),
+    padding: EdgeInsets.symmetric(horizontal: 1.w, vertical: 6.h),
     shrinkWrap: true,
     physics: const NeverScrollableScrollPhysics(),
     itemBuilder: ((context, index) => _createItems(index)),

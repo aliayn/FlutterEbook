@@ -10,6 +10,7 @@ const Color _darkBG = Color(0xff121212);
 
 ThemeData lightTheme(context) => ThemeData(
     backgroundColor: _lightBG,
+    canvasColor: Colors.transparent,
     primaryColor: _lightPrimary,
     scaffoldBackgroundColor: _lightBG,
     appBarTheme: const AppBarTheme(
@@ -25,6 +26,7 @@ ThemeData lightTheme(context) => ThemeData(
 ThemeData darkTheme(context) => ThemeData(
     brightness: Brightness.dark,
     backgroundColor: _darkBG,
+    canvasColor: Colors.transparent,
     primaryColor: _darkPrimary,
     scaffoldBackgroundColor: _darkBG,
     appBarTheme: const AppBarTheme(
