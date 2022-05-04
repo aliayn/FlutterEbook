@@ -178,4 +178,21 @@ class _ApiClient implements ApiClient {
     }
     return Future.error('Error ${_res.statusCode}');
   }
+
+  @override
+  Future<CategoryFeed> getCustomApi(link) async {
+    final _res = await _dio
+        .get(link)
+        .catchError((onError) {
+      Future.error(onError);
+    });
+    if (_res.statusCode == 200) {
+      Xml2Json xml2json = Xml2Json();
+      xml2json.parse(_res.data.toString());
+      var json = jsonDecode(xml2json.toGData());
+      final value = CategoryFeed.fromJson(json);
+      return value;
+    }
+    return Future.error('Error ${_res.statusCode}');
+  }
 }

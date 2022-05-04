@@ -56,4 +56,7 @@ abstract class ApiClient {
 
   @GET(_Apis.horror)
   Future<CategoryFeed> getHorror();
+
+  @GET('')
+  Future<CategoryFeed> getCustomApi(String link);
 }

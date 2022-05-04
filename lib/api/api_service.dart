@@ -25,4 +25,6 @@ class ApiService {
   Future<CategoryFeed> getRomance() => _apiClient.getRomance();
 
   Future<CategoryFeed> getHorror() => _apiClient.getHorror();
+
+  Future<CategoryFeed> getCustomApi(link) => _apiClient.getCustomApi(link);
 }

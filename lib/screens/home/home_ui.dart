@@ -3,6 +3,7 @@ import 'package:ebook_app/components/book_list_item.dart';
 import 'package:ebook_app/controllers/home/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../components/body_builder.dart';
 import '../../models/category.dart';
@@ -20,21 +21,24 @@ Widget _buildBody() => Obx((() => BodyBuilder(
 Widget _buildBodyList() {
   return RefreshIndicator(
     onRefresh: () async => await controller.refreshData(),
-    child: ListView(
-      children: <Widget>[
-        const SizedBox(height: 20.0),
-        _buildSectionTitle('Popular'),
-        const SizedBox(height: 20.0),
-        _buildFeaturedSection(),
-        const SizedBox(height: 20.0),
-        _buildSectionTitle('Categories'),
-        const SizedBox(height: 10.0),
-        _buildGenreSection(),
-        const SizedBox(height: 20.0),
-        _buildSectionTitle('Recently Added'),
-        const SizedBox(height: 20.0),
-        _buildNewSection(),
-      ],
+    child: Padding(
+      padding: EdgeInsets.only(top: 4.0.h),
+      child: ListView(
+        children: <Widget>[
+          const SizedBox(height: 20.0),
+          _buildSectionTitle('Popular'),
+          const SizedBox(height: 20.0),
+          _buildFeaturedSection(),
+          const SizedBox(height: 20.0),
+          _buildSectionTitle('Categories'),
+          const SizedBox(height: 10.0),
+          _buildGenreSection(),
+          const SizedBox(height: 20.0),
+          _buildSectionTitle('Recently Added'),
+          const SizedBox(height: 20.0),
+          _buildNewSection(),
+        ],
+      ),
     ),
   );
 }

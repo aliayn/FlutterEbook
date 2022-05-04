@@ -9,4 +9,6 @@ class AppProvider extends GetxService {
   Future<CategoryFeed> getPopularApi() => _apiService.getPopular();
 
   Future<CategoryFeed> getRecentApi() => _apiService.getRecent();
+
+  Future<CategoryFeed> getCustomApi(link) => _apiService.getCustomApi(link);
 }

@@ -1,5 +1,5 @@
-import 'package:ebook_app/controllers/home/home_binding.dart';
-import 'package:ebook_app/screens/home/home_page.dart';
+import 'package:ebook_app/controllers/main/main_binding.dart';
+import 'package:ebook_app/screens/main/main_page.dart';
 import 'package:get/route_manager.dart';
 
 abstract class Routes {
@@ -11,12 +11,12 @@ abstract class Routes {
 }
 
 abstract class AppPages {
-  static String initial = Routes.home;
+  static String initial = Routes.main;
   static final routes = <GetPage>[
     GetPage(
-      name: Routes.home,
-      page: () => const HomePage(),
-      binding: HomeBinding(),
+      name: Routes.main,
+      page: () => const MainPage(),
+      binding: MainBinding(),
     ),
   ];
 }
