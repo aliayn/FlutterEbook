@@ -16,6 +16,7 @@ Widget mainUI() => StatefulBuilder(
               itemCount: 3,
               controller: _controller,
               confineInSafeArea: true,
+              resizeToAvoidBottomInset: true,
               backgroundColor: Theme.of(context).primaryColor,
               customWidget: CustomNavBarWidget(
                   _controller.index, _navBarsItems(context), (index) {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class CustomNavBarWidget extends StatelessWidget {
@@ -41,14 +40,13 @@ class CustomNavBarWidget extends StatelessWidget {
                   child: FittedBox(
                       child: Text(
                     item.title ?? '',
-                    style: GoogleFonts.lato(
-                        textStyle: TextStyle(
-                            color: isSelected
-                                ? (item.activeColorSecondary ??
-                                    item.activeColorPrimary)
-                                : item.inactiveColorPrimary,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12.0)),
+                    style: TextStyle(
+                        color: isSelected
+                            ? (item.activeColorSecondary ??
+                                item.activeColorPrimary)
+                            : item.inactiveColorPrimary,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12.0),
                   )),
                 ),
               )
@@ -62,7 +60,6 @@ class CustomNavBarWidget extends StatelessWidget {
         height: double.infinity,
         decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
-          borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.2),
