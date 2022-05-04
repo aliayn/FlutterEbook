@@ -26,6 +26,7 @@ dependencies:
   epub_viewer: ^0.2.5
   flutter_native_splash: ^2.1.6
   floor: ^1.2.0
+  sqflite: ^2.0.2
   freezed_annotation: any
   dio: ^4.0.4
   retrofit: any
