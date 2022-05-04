@@ -1,4 +1,5 @@
 import 'package:ebook_app/components/book_card.dart';
+import 'package:ebook_app/components/book_list_item.dart';
 import 'package:ebook_app/controllers/home/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,6 +22,9 @@ Widget _buildBodyList() {
     onRefresh: () async => await controller.refreshData(),
     child: ListView(
       children: <Widget>[
+        const SizedBox(height: 20.0),
+        _buildSectionTitle('Popular'),
+        const SizedBox(height: 20.0),
         _buildFeaturedSection(),
         const SizedBox(height: 20.0),
         _buildSectionTitle('Categories'),
@@ -161,4 +165,6 @@ _buildNewSection() {
   );
 }
 
-_bookListItem({required Entry entry}) => Container();
+_bookListItem({required Entry entry}) => BookListItem(
+      entry: entry,
+    );

@@ -24,9 +24,9 @@ class BodyBuilder extends StatelessWidget {
   Widget _buildBody() {
     switch (apiRequestStatus) {
       case APIRequestStatus.loading:
-        return LoadingWidget();
+        return const LoadingWidget();
       case APIRequestStatus.unInitialized:
-        return LoadingWidget();
+        return const LoadingWidget();
       case APIRequestStatus.connectionError:
         return MyErrorWidget(
           refreshCallBack: reload,
@@ -40,7 +40,7 @@ class BodyBuilder extends StatelessWidget {
       case APIRequestStatus.loaded:
         return child;
       default:
-        return LoadingWidget();
+        return const LoadingWidget();
     }
   }
 }

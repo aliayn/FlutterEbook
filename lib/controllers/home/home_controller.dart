@@ -26,13 +26,12 @@ class HomeController extends BaseController {
     }
   }
 
-  Future<bool> refreshData() async {
+  refreshData() async {
     try {
       top(await provider.getPopularApi());
       recent(await provider.getRecentApi());
-      return Future.value(true);
     } catch (e) {
-      return Future.value(false);
+      checkError(apiRequestStatus, e);
     }
   }
 

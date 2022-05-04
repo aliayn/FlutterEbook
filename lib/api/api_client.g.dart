@@ -7,11 +7,11 @@ part of 'api_client.dart';
 // **************************************************************************
 
 class _ApiClient implements ApiClient {
-  _ApiClient(this._dio, {this.baseUrl}) {
+  _ApiClient({this.baseUrl}) {
     baseUrl ??= 'https://catalog.feedbooks.com/publicdomain/browse/';
   }
 
-  final Dio _dio;
+  final Dio _dio = Dio(BaseOptions(connectTimeout: 5000));
 
   String? baseUrl;
 

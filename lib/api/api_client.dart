@@ -25,7 +25,7 @@ class _Apis {
 
 @RestApi(baseUrl: _Apis.baseURL)
 abstract class ApiClient {
-  factory ApiClient(Dio dio, {String baseUrl}) = _ApiClient;
+  factory ApiClient({String baseUrl}) = _ApiClient;
 
   @GET(_Apis.popular)
   Future<CategoryFeed> getPopular();
