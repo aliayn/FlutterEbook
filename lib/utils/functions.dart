@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-
 class Functions {
-
   static bool checkConnectionError(e) {
     if (e.toString().contains('SocketException') ||
         e.toString().contains('HandshakeException')) {

@@ -34,20 +34,20 @@ class MyErrorWidget extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            child: RaisedButton(
-              onPressed: () => refreshCallBack(),
-              color: Theme.of(context).colorScheme.secondary,
+          ElevatedButton(
+            onPressed: () => refreshCallBack(),
+            style: ElevatedButton.styleFrom(
+              primary: Theme.of(context).colorScheme.secondary,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5.0),
               ),
-              child: const Text(
-                'TRY AGAIN',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.bold,
-                ),
+            ),
+            child: const Text(
+              'TRY AGAIN',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 15.0,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
