@@ -7,9 +7,9 @@ import 'package:uuid/uuid.dart';
 import '../models/category.dart';
 
 const uuid = Uuid();
-final String imgTag = uuid.v4();
-final String titleTag = uuid.v4();
-final String authorTag = uuid.v4();
+final String _imgTag = uuid.v4();
+final String _titleTag = uuid.v4();
+final String _authorTag = uuid.v4();
 
 Widget bookCardUI({required String img, required Entry entry}) => SizedBox(
       width: 120.0,
@@ -27,9 +27,9 @@ Widget bookCardUI({required String img, required Entry entry}) => SizedBox(
           onTap: () {
             geToDetailPage(
               entry: entry,
-              imgTag: imgTag,
-              titleTag: titleTag,
-              authorTag: authorTag,
+              imgTag: _imgTag,
+              titleTag: _titleTag,
+              authorTag: _authorTag,
             );
           },
           child: ClipRRect(
@@ -37,7 +37,7 @@ Widget bookCardUI({required String img, required Entry entry}) => SizedBox(
               Radius.circular(10.0),
             ),
             child: Hero(
-              tag: imgTag,
+              tag: _imgTag,
               child: CachedNetworkImage(
                 imageUrl: img,
                 placeholder: (context, url) => const LoadingWidget(

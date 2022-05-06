@@ -7,16 +7,16 @@ import '../routes/router.dart';
 import 'loading_widget.dart';
 
 const uuid = Uuid();
-final String imgTag = uuid.v4();
-final String titleTag = uuid.v4();
-final String authorTag = uuid.v4();
+final String _imgTag = uuid.v4();
+final String _titleTag = uuid.v4();
+final String _authorTag = uuid.v4();
 
 Widget bookListItemUI({required Entry entry}) => Builder(builder: (context) => InkWell(
         onTap: () => geToDetailPage(
             entry: entry,
-            imgTag: imgTag,
-            titleTag: titleTag,
-            authorTag: authorTag,
+            imgTag: _imgTag,
+            titleTag: _titleTag,
+            authorTag: _authorTag,
           ),
         child: SizedBox(
           height: 150.0,
@@ -36,7 +36,7 @@ Widget bookListItemUI({required Entry entry}) => Builder(builder: (context) => I
                     Radius.circular(10.0),
                   ),
                   child: Hero(
-                    tag: imgTag,
+                    tag: _imgTag,
                     child: CachedNetworkImage(
                       imageUrl: entry.link![1].href!,
                       placeholder: (context, url) => const SizedBox(
@@ -67,7 +67,7 @@ Widget bookListItemUI({required Entry entry}) => Builder(builder: (context) => I
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Hero(
-                      tag: titleTag,
+                      tag: _titleTag,
                       child: Material(
                         type: MaterialType.transparency,
                         child: Text(
@@ -86,7 +86,7 @@ Widget bookListItemUI({required Entry entry}) => Builder(builder: (context) => I
                       height: 5,
                     ),
                     Hero(
-                      tag: authorTag,
+                      tag: _authorTag,
                       child: Material(
                         type: MaterialType.transparency,
                         child: Text(

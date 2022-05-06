@@ -5,4 +5,6 @@ class Favorite {
   @primaryKey
   late String id;
   late String item;
+
+  Favorite({this.id = '', this.item = ''});
 }

@@ -27,6 +27,7 @@ dependencies:
   flutter_native_splash: ^2.1.6
   floor: ^1.2.0
   sqflite: ^2.0.2
+  path_provider: ^2.0.3
   freezed_annotation: any
   dio: ^4.0.4
   retrofit: any

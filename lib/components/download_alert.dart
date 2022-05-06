@@ -9,7 +9,7 @@ var _received = 0.obs;
 var _progress = '0'.obs;
 var _total = 0.obs;
 
-Widget downloadAlert(url, path) => GetX(
+Widget downloadAlert({required url,required path}) => GetX(
       initState: _download(url, path),
       builder: ((controller) => WillPopScope(
             onWillPop: () => Future.value(false),

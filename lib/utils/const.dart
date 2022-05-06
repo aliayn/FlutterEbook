@@ -1,2 +1,1 @@
-const String title = 'title';
-const String url = 'url';
+const String appName = 'Awesome Ebook App';

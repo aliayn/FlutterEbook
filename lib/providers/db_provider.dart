@@ -1,8 +1,10 @@
 import 'package:ebook_app/database/dao.dart';
 import 'package:ebook_app/database/database.dart';
+import 'package:ebook_app/models/downloads.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
 import '../models/favorite.dart';
+import '../models/locator.dart';
 
 class DBProvider extends GetxService {
   final String _databaseName = "Ebook.db";
@@ -11,25 +13,47 @@ class DBProvider extends GetxService {
     _initDB();
   }
 
-  FavoritesDatabase? _favoritesDatabase;
-  late FavoriteDAO _favoriteDAO;
+  AppDatabase? _appDatabase;
+  late AppDAO _appDAO;
 
   _initDB() async {
-    if (_favoritesDatabase != null) {
-      return _favoritesDatabase!;
+    if (_appDatabase != null) {
+      return _appDatabase!;
     }
 
-    _favoritesDatabase = await $FloorFavoritesDatabase.databaseBuilder(_databaseName).build();
-    _favoriteDAO = _favoritesDatabase!.favoriteDAO;
+    _appDatabase =await $FloorAppDatabase.databaseBuilder(_databaseName).build();
+    _appDAO = _appDatabase!.appDAO;
   }
 
   close() async {
-    await _favoritesDatabase?.close();
+    await _appDatabase?.close();
   }
 
-  Future insetFavorite(Favorite favorite) => _favoriteDAO.insetFavorite(favorite);
+//--------------------------------Favorite------------------------------------
 
-  Future<List<Favorite>> getAllFavorites() => _favoriteDAO.getAllFavorites();
+  Future insetFavorite(Favorite favorite) =>_appDAO.insetFavorite(favorite);
 
-  Future deleteFavorite(String id) => _favoriteDAO.deleteFavorite(id);
+  Future<List<Favorite>> getAllFavorites() => _appDAO.getAllFavorites();
+
+  Future deleteFavorite(String id) => _appDAO.deleteFavorite(id);
+
+  Future<Favorite?> findFavorite(String id) => _appDAO.findFavorite(id);
+
+//------------------------------Downloads-------------------------------------
+
+  Future insetDownload(Downloads downloads) =>_appDAO.insetDownload(downloads);
+
+  Future<List<Downloads>> getAllDownloads() => _appDAO.getAllDownloads();
+
+  Future deleteDownload(String id) => _appDAO.deleteDownload(id);
+
+  Future<Downloads?> findDownload(String id) => _appDAO.findDownload(id);
+
+//------------------------------Locator-------------------------------------
+
+  Future insetLocator(Locator locator) =>_appDAO.insetLocator(locator);
+
+  Future deleteLocator(String id) => _appDAO.deleteLocator(id);
+
+  Future<Locator?> findLocator(String id) => _appDAO.findLocator(id);
 }
