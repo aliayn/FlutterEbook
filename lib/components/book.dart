@@ -4,38 +4,25 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 import '../models/category.dart';
+import '../routes/router.dart';
 
-class BookItem extends StatelessWidget {
-  final String img;
-  final String title;
-  final Entry entry;
+const uuid = Uuid();
+final String imgTag = uuid.v4();
+final String titleTag = uuid.v4();
+final String authorTag = uuid.v4();
 
-  BookItem({
-    Key? key,
-    required this.img,
-    required this.title,
-    required this.entry,
-  }) : super(key: key);
-
-  static const uuid = Uuid();
-  final String imgTag = uuid.v4();
-  final String titleTag = uuid.v4();
-  final String authorTag = uuid.v4();
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        // MyRouter.pushPage(
-        //   context,
-        //   Details(
-        //     entry: entry,
-        //     imgTag: imgTag,
-        //     titleTag: titleTag,
-        //     authorTag: authorTag,
-        //   ),
-        // );
-      },
+Widget bookUI({
+  required String img,
+  required String title,
+  required Entry entry,
+}) =>
+    InkWell(
+      onTap: () => geToDetailPage(
+        entry: entry,
+        imgTag: imgTag,
+        titleTag: titleTag,
+        authorTag: authorTag,
+      ),
       child: Column(
         children: <Widget>[
           ClipRRect(
@@ -78,5 +65,3 @@ class BookItem extends StatelessWidget {
         ],
       ),
     );
-  }
-}

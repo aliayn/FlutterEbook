@@ -1,28 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ebook_app/components/loading_widget.dart';
+import 'package:ebook_app/routes/router.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 import '../models/category.dart';
 
-class BookCard extends StatelessWidget {
-  final String img;
-  final Entry entry;
+const uuid = Uuid();
+final String imgTag = uuid.v4();
+final String titleTag = uuid.v4();
+final String authorTag = uuid.v4();
 
-  BookCard({
-    Key? key,
-    required this.img,
-    required this.entry,
-  }) : super(key: key);
-
-  static const uuid = Uuid();
-  final String imgTag = uuid.v4();
-  final String titleTag = uuid.v4();
-  final String authorTag = uuid.v4();
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
+Widget bookCardUI({required String img, required Entry entry}) => SizedBox(
       width: 120.0,
       child: Card(
         shape: const RoundedRectangleBorder(
@@ -36,15 +25,12 @@ class BookCard extends StatelessWidget {
             Radius.circular(10.0),
           ),
           onTap: () {
-            // MyRouter.pushPage(
-            //   context,
-            //   Details(
-            //     entry: entry,
-            //     imgTag: imgTag,
-            //     titleTag: titleTag,
-            //     authorTag: authorTag,
-            //   ),
-            // );
+            geToDetailPage(
+              entry: entry,
+              imgTag: imgTag,
+              titleTag: titleTag,
+              authorTag: authorTag,
+            );
           },
           child: ClipRRect(
             borderRadius: const BorderRadius.all(
@@ -68,5 +54,3 @@ class BookCard extends StatelessWidget {
         ),
       ),
     );
-  }
-}

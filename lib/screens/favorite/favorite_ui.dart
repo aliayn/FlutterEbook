@@ -56,7 +56,7 @@ _buildGridView() {
           Entry.fromJson(jsonDecode(_controller.favorites[index].item));
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5.0),
-        child: BookItem(
+        child: bookUI(
           img: entry.link![1].href!,
           title: entry.title!.t!,
           entry: entry,

@@ -1,4 +1,5 @@
 import 'package:ebook_app/base/base_controller.dart';
+import 'package:ebook_app/routes/router.dart';
 import 'package:ebook_app/theme/theme_service.dart';
 import 'package:get/get.dart';
 
@@ -10,8 +11,8 @@ class SettingController extends BaseController {
     themeMode(ThemeService.instance.isDarkMode());
   }
 
-  routeToFavorites() {}
-
+  routeToFavorites() => goToFavorite();
+  
   routeToDownloads() {}
 
   showLocaleDialog() {}

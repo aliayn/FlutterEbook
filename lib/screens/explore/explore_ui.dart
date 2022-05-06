@@ -73,13 +73,7 @@ _buildSectionHeader(Link link) {
         ),
         GestureDetector(
           onTap: () {
-            // MyRouter.pushPage(
-            //   context,
-            //   Genre(
-            //     title: '${link.title}',
-            //     url: link.href!,
-            //   ),
-            // );
+            _exploreController.routeToGenre('${link.title}', link.href!);
           },
           child: Builder(builder: (context) {
             return Text(
@@ -120,7 +114,7 @@ _buildSectionBookList(Link link) {
                     horizontal: 5.0,
                     vertical: 10.0,
                   ),
-                  child: BookCard(
+                  child: bookCardUI(
                     img: entry.link![1].href!,
                     entry: entry,
                   ),

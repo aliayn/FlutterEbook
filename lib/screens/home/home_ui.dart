@@ -87,7 +87,7 @@ _buildFeaturedSection() {
   );
 }
 
-_bookComponent(String img, Entry entry) => BookCard(
+_bookComponent(String img, Entry entry) => bookCardUI(
       img: img,
       entry: entry,
     );
@@ -125,7 +125,7 @@ _buildGenreSection() {
                 borderRadius: const BorderRadius.all(
                   Radius.circular(20.0),
                 ),
-                onTap: () => controller.goToGenrePage(
+                onTap: () => controller.routeToGenrePage(
                   title: '${link.title}',
                   url: link.href!,
                 ),
@@ -169,6 +169,6 @@ _buildNewSection() {
   );
 }
 
-_bookListItem({required Entry entry}) => BookListItem(
+_bookListItem({required Entry entry}) => bookListItemUI(
       entry: entry,
     );

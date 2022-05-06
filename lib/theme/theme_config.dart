@@ -14,7 +14,7 @@ ThemeData lightTheme(context) => ThemeData(
     primaryColor: _lightPrimary,
     scaffoldBackgroundColor: _lightBG,
     appBarTheme: const AppBarTheme(
-      elevation: 0.0,
+      elevation: 0.0
     ),
     textTheme: GoogleFonts.acmeTextTheme(Theme.of(context).textTheme)
         .apply(bodyColor: _darkPrimary, displayColor: _darkPrimary),

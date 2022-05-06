@@ -2,6 +2,7 @@ import 'package:ebook_app/base/base_controller.dart';
 import 'package:get/get.dart';
 
 import '../../models/category.dart';
+import '../../routes/router.dart';
 import '../../utils/api_request_status.dart';
 
 class HomeController extends BaseController {
@@ -35,5 +36,5 @@ class HomeController extends BaseController {
     }
   }
 
-  goToGenrePage({required String title, required String url}) {}
+  routeToGenrePage({required String title, required String url}) =>goToGenrePage(title, url);
 }
