@@ -8,17 +8,17 @@ import 'package:sizer/sizer.dart';
 import '../../components/body_builder.dart';
 import '../../models/category.dart';
 
-var controller = Get.find<HomeController>();
-
 Widget homeUI() => Scaffold(body: _buildBody());
 
-Widget _buildBody() => Obx((() => BodyBuilder(
-      apiRequestStatus: controller.apiRequestStatus.value,
-      child: _buildBodyList(),
-      reload: () => controller.getFeeds(),
-    )));
+Widget _buildBody() => GetX<HomeController>(
+      builder: (controller) => BodyBuilder(
+        apiRequestStatus: controller.apiRequestStatus.value,
+        child: _buildBodyList(controller),
+        reload: () => controller.getFeeds(),
+      ),
+    );
 
-Widget _buildBodyList() {
+Widget _buildBodyList(controller) {
   return RefreshIndicator(
     onRefresh: () async => await controller.refreshData(),
     child: Padding(
@@ -28,15 +28,15 @@ Widget _buildBodyList() {
           const SizedBox(height: 20.0),
           _buildSectionTitle('Popular'),
           const SizedBox(height: 20.0),
-          _buildFeaturedSection(),
+          _buildFeaturedSection(controller),
           const SizedBox(height: 20.0),
           _buildSectionTitle('Categories'),
           const SizedBox(height: 10.0),
-          _buildGenreSection(),
+          _buildGenreSection(controller),
           const SizedBox(height: 20.0),
           _buildSectionTitle('Recently Added'),
           const SizedBox(height: 20.0),
-          _buildNewSection(),
+          _buildNewSection(controller),
         ],
       ),
     ),
@@ -61,7 +61,7 @@ _buildSectionTitle(String title) {
   );
 }
 
-_buildFeaturedSection() {
+_buildFeaturedSection(controller) {
   return SizedBox(
     height: 200.0,
     child: Center(
@@ -92,7 +92,7 @@ _bookComponent(String img, Entry entry) => bookCardUI(
       entry: entry,
     );
 
-_buildGenreSection() {
+_buildGenreSection(controller) {
   return SizedBox(
     height: 50.0,
     child: Center(
@@ -149,7 +149,7 @@ _buildGenreSection() {
   );
 }
 
-_buildNewSection() {
+_buildNewSection(controller) {
   return ListView.builder(
     primary: false,
     padding: const EdgeInsets.symmetric(horizontal: 15.0),

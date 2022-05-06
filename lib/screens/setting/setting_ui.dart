@@ -4,40 +4,43 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-var _controller = Get.find<SettingController>();
-
 settingUI() => Scaffold(
       body: _createBody(),
     );
 
-_createBody() => ListView.separated(
-    padding: EdgeInsets.symmetric(horizontal: 1.w, vertical: 6.h),
-    shrinkWrap: true,
-    physics: const NeverScrollableScrollPhysics(),
-    itemBuilder: ((context, index) => _createItems(index)),
-    separatorBuilder: (context, index) => const Divider(),
-    itemCount: 5);
+_createBody() => GetX<SettingController>(
+      builder: ((controller) {
+        controller.themeMode.value;
+        return ListView.separated(
+            padding: EdgeInsets.symmetric(horizontal: 1.w, vertical: 6.h),
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: ((context, index) => _createItems(controller, index)),
+            separatorBuilder: (context, index) => const Divider(),
+            itemCount: 5);
+      }),
+    );
 
-_createItems(int position) {
+_createItems(controller, position) {
   switch (position) {
     case 0:
       return _buildItem(CupertinoIcons.heart, 'Favorites',
-          () => _controller.routeToFavorites());
+          () => controller.routeToFavorites());
 
     case 1:
       return _buildItem(CupertinoIcons.cloud_download, 'Downloads',
-          () => _controller.routeToFavorites());
+          () => controller.routeToDownloads());
 
     case 2:
-      return _buildThemeItem(CupertinoIcons.moon, 'Dark Mode');
+      return _buildThemeItem(controller, CupertinoIcons.moon, 'Dark Mode');
 
     case 3:
       return _buildItem(CupertinoIcons.location_circle, 'Language',
-          () => _controller.showLocaleDialog());
+          () => controller.showLocaleDialog());
 
     case 4:
       return _buildItem(
-          CupertinoIcons.info, 'About', () => _controller.showAboutDialog());
+          CupertinoIcons.info, 'About', () => controller.showAboutDialog());
   }
   return const SizedBox();
 }
@@ -48,12 +51,11 @@ _buildItem(icon, title, function) => ListTile(
       onTap: function,
     );
 
-_buildThemeItem(icon, title) => Builder(
-    builder: (context) => Obx(
-          () => SwitchListTile(
-            secondary: Icon(icon),
-            title: Text(title),
-            value: _controller.themeMode.value,
-            onChanged: (v) => _controller.switchTheme(),
-          ),
-        ));
+_buildThemeItem(controller, icon, title) => Builder(
+      builder: (context) => SwitchListTile(
+        secondary: Icon(icon),
+        title: Text(title),
+        value: controller.themeMode.value,
+        onChanged: (v) => controller.switchTheme(),
+      ),
+    );

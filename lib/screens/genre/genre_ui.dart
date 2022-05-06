@@ -7,8 +7,6 @@ import '../../components/book_list_item.dart';
 import '../../components/loading_widget.dart';
 import '../../models/category.dart';
 
-var _controller = Get.find<GenreController>();
-
 Widget genreUI(arguments) {
   return Scaffold(
     appBar: AppBar(
@@ -20,27 +18,26 @@ Widget genreUI(arguments) {
 }
 
 Widget _buildBody(arguments) {
-  _controller.getFeed(arguments[1]);
-  return Obx((() => 
-     BodyBuilder(
-      apiRequestStatus: _controller.apiRequestStatus.value,
-      child: _buildBodyList(),
-      reload: () => _controller.getFeed(arguments[1]),
-    )
-  ));
+  return GetX<GenreController>(
+      initState: ((state) => state.controller?.getFeed(arguments[1])),
+      builder: ((controller) => BodyBuilder(
+            apiRequestStatus: controller.apiRequestStatus.value,
+            child: _buildBodyList(controller),
+            reload: () => controller.getFeed(arguments[1]),
+          )));
 }
 
-_buildBodyList() {
+_buildBodyList(controller) {
   return ListView(
-    controller: _controller.scrollController,
+    controller: controller.scrollController,
     children: <Widget>[
       ListView.builder(
         physics: const NeverScrollableScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         shrinkWrap: true,
-        itemCount: _controller.items.length,
+        itemCount: controller.items.length,
         itemBuilder: (BuildContext context, int index) {
-          Entry entry = _controller.items[index];
+          Entry entry = controller.items[index];
           return Padding(
             padding: const EdgeInsets.all(5.0),
             child: bookListItemUI(
@@ -50,7 +47,7 @@ _buildBodyList() {
         },
       ),
       const SizedBox(height: 10.0),
-      _controller.loadingMore.value
+      controller.loadingMore.value
           ? SizedBox(
               height: 80.0,
               child: _buildProgressIndicator(),

@@ -7,17 +7,15 @@ import 'package:get/get.dart';
 import '../../components/book.dart';
 import '../../models/category.dart';
 
-final _controller = Get.find<FavoriteController>();
-
 Widget favoriteUI() => Scaffold(body: _createBody());
 
-_createBody() => Obx(() {
-      if (_controller.favorites.isEmpty) {
+_createBody() => GetX<FavoriteController>(builder: ((controller) {
+      if (controller.favorites.isEmpty) {
         return _buildEmptyListView();
       } else {
-        return _buildGridView();
+        return _buildGridView(controller);
       }
-    });
+    }));
 
 _buildEmptyListView() {
   return Center(
@@ -41,19 +39,19 @@ _buildEmptyListView() {
   );
 }
 
-_buildGridView() {
+_buildGridView(controller) {
   return GridView.builder(
     padding:
         const EdgeInsets.only(left: 10.0, top: 20.0, right: 10.0, bottom: 0.0),
     shrinkWrap: true,
-    itemCount: _controller.favorites.length,
+    itemCount: controller.favorites.length,
     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
       crossAxisCount: 3,
       childAspectRatio: 200 / 340,
     ),
     itemBuilder: (BuildContext context, int index) {
       Entry entry =
-          Entry.fromJson(jsonDecode(_controller.favorites[index].item));
+          Entry.fromJson(jsonDecode(controller.favorites[index].item));
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5.0),
         child: bookUI(

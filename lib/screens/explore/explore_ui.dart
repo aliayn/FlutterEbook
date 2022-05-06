@@ -9,28 +9,29 @@ import '../../components/loading_widget.dart';
 import '../../controllers/home/home_controller.dart';
 import '../../models/category.dart';
 
-final _homeController = Get.find<HomeController>();
 final _exploreController = Get.find<ExploreController>();
 
 Widget exploreUI() => Scaffold(
       body: _buildBody(),
     );
 
-Widget _buildBody() => Obx((() => BodyBuilder(
-      apiRequestStatus: _homeController.apiRequestStatus.value,
-      child: _buildBodyList(),
-      reload: () => _homeController.getFeeds(),
-    )));
+Widget _buildBody() => GetX<HomeController>(
+      builder: (controller) => BodyBuilder(
+        apiRequestStatus: controller.apiRequestStatus.value,
+        child: _buildBodyList(controller),
+        reload: () => controller.getFeeds(),
+      ),
+    );
 
-_buildBodyList() {
+_buildBodyList(controller) {
   return RefreshIndicator(
-    onRefresh: () async => await _homeController.refreshData(),
+    onRefresh: () async => await controller.refreshData(),
     child: Padding(
       padding: EdgeInsets.only(top: 4.0.h),
       child: ListView.builder(
-        itemCount: _homeController.top.value.feed?.link?.length ?? 0,
+        itemCount: controller.top.value.feed?.link?.length ?? 0,
         itemBuilder: (BuildContext context, int index) {
-          Link link = _homeController.top.value.feed!.link![index];
+          Link link = controller.top.value.feed!.link![index];
 
           // We don't need the tags from 0-9 because
           // they are not categories
