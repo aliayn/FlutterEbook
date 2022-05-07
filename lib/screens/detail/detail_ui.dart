@@ -7,48 +7,60 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../components/body_builder.dart';
 import '../../components/description_text.dart';
 import '../../models/category.dart';
 
 Widget detailUI(arguments) => _buildUI(arguments);
 
-_buildUI(arguments) => GetX<DetailController>(initState: (state) {
-      state.controller?.entry(arguments[0]);
-      state.controller
-          ?.getFeed(arguments[0].author!.uri!.t!.replaceAll(r'\&lang=en', ''));
-    }, builder: ((controller) => Scaffold(
-        appBar: AppBar(
-          actions: <Widget>[
-            IconButton(
-              onPressed: () async {
-                if (controller.faved.value) {
-                  controller.removeFav();
-                } else {
-                  controller.addFav();
-                }
-              },
-              icon: Builder(
-                  builder: (context) => Icon(
-                        controller.faved.value
-                            ? CupertinoIcons.heart_fill
-                            : CupertinoIcons.heart,
-                        color: controller.faved.value
-                            ? Colors.red
-                            : Theme.of(context).iconTheme.color,
-                      )),
-            ),
-            IconButton(
-              onPressed: () => controller.share(),
-              icon: const Icon(
-                CupertinoIcons.share,
-              ),
-            ),
-          ],
-        ),
-        body: _buildBody(controller, arguments[1], arguments[2], arguments[3]),
-      )));
+_buildUI(arguments) {
+  var url = arguments[0].author!.uri!.t!.replaceAll(r'\&lang=en', '');
+  var imgTag = arguments[1];
+  var titleTag = arguments[2];
+  var authorTag = arguments[3];
 
-_buildBody(controller, imgTag, titleTag, authorTag) => ListView(
+  return GetX<DetailController>(initState: (state) {
+    state.controller?.entry(arguments[0]);
+    state.controller?.getFeed(url);
+  }, builder: ((controller) {
+    controller.faved.value;
+    controller.downloaded.value;
+    return Scaffold(
+      appBar: AppBar(
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {
+              if (controller.faved.value) {
+                controller.removeFav();
+              } else {
+                controller.addFav();
+              }
+            },
+            icon: Builder(
+                builder: (context) => Icon(
+                      controller.faved.value
+                          ? CupertinoIcons.heart_fill
+                          : CupertinoIcons.heart,
+                      color: controller.faved.value
+                          ? Colors.red
+                          : Theme.of(context).primaryColor,
+                    )),
+          ),
+          IconButton(
+            onPressed: () => controller.share(),
+            icon: const Icon(
+              CupertinoIcons.share,
+            ),
+          ),
+        ],
+      ),
+      body: _buildBody(controller, url, imgTag, titleTag, authorTag),
+    );
+  }));
+}
+
+_buildBody(DetailController controller, url, imgTag, titleTag, authorTag) =>
+    ListView(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       children: <Widget>[
         const SizedBox(height: 10.0),
@@ -64,7 +76,7 @@ _buildBody(controller, imgTag, titleTag, authorTag) => ListView(
         _buildSectionTitle('More from Author'),
         _buildDivider(),
         const SizedBox(height: 10.0),
-        _buildMoreBook(controller),
+        _buildMoreBook(controller, url),
       ],
     );
 
@@ -75,7 +87,8 @@ _buildDivider() {
           ));
 }
 
-_buildImageTitleSection(controller, imgTag, titleTag, authorTag) {
+_buildImageTitleSection(
+    DetailController controller, imgTag, titleTag, authorTag) {
   return Builder(
       builder: (context) => Row(
             mainAxisSize: MainAxisSize.max,
@@ -110,7 +123,7 @@ _buildImageTitleSection(controller, imgTag, titleTag, authorTag) {
                       child: Material(
                         type: MaterialType.transparency,
                         child: Text(
-                          '${controller.entry.value.title!.t!.replaceAll(r'\', '')}',
+                          controller.entry.value.title!.t!.replaceAll(r'\', ''),
                           style: const TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
@@ -138,9 +151,9 @@ _buildImageTitleSection(controller, imgTag, titleTag, authorTag) {
                     _buildCategory(controller.entry.value, context),
                     Center(
                       child: SizedBox(
-                        height: 20.0,
+                        height: 30.0,
                         width: 100.w,
-                        child: _buildDownloadReadButton(controller),
+                        child: _createDownloadReadButton(controller),
                       ),
                     ),
                   ],
@@ -162,13 +175,14 @@ _buildSectionTitle(String title) {
           ));
 }
 
-_buildMoreBook(controller) {
-  if (controller.loading) {
-    return const SizedBox(
-      height: 100.0,
-      child: LoadingWidget(),
+_buildMoreBook(DetailController controller, url) => BodyBuilder(
+      apiRequestStatus: controller.apiRequestStatus.value,
+      child: _buildBodyList(controller),
+      reload: () => controller.refreshFeed(url),
     );
-  } else {
+
+_buildBodyList(DetailController controller) {
+  try {
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -183,28 +197,60 @@ _buildMoreBook(controller) {
         );
       },
     );
+  } catch (e) {
+    return Builder(
+        builder: (context) => SizedBox(
+              height: 100,
+              child: Text(
+                'There is no more Book!',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.headline6!.color,
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ));
   }
 }
 
-_buildDownloadReadButton(controller) {
-  if (controller.downloaded) {
-    return Builder(
-        builder: (context) => TextButton(
-              onPressed: () => controller.openBook(context),
-              child: const Text(
-                'Read Book',
-              ),
-            ));
-  } else {
-    return Builder(
-        builder: (context) => TextButton(
-              onPressed: () => controller.downloadFile(context),
-              child: const Text(
-                'Download',
-              ),
-            ));
-  }
+_createDownloadReadButton(DetailController controller) {
+  return Builder(
+      builder: (context) => controller.downloaded.value
+          ? _buildDownloadReadButton(
+              'Read Book', () => controller.openBook(context))
+          : _buildDownloadReadButton(
+              'Download Book', () => controller.downloadFile(context)));
 }
+
+Widget _buildDownloadReadButton(title, Function() function) =>
+    Builder(builder: (context) {
+      return SizedBox(
+        width: 40,
+        height: 50,
+        child: Center(
+          child: Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.secondary,
+              borderRadius: const BorderRadius.all(
+                Radius.circular(20.0),
+              ),
+            ),
+            child: InkWell(
+              borderRadius: const BorderRadius.all(
+                Radius.circular(20.0),
+              ),
+              onTap: function,
+              child: Center(
+                child: Text(
+                  title,
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    });
 
 _buildCategory(Entry entry, context) {
   if (entry.category == null) {
@@ -223,7 +269,8 @@ _buildCategory(Entry entry, context) {
         itemBuilder: (BuildContext context, int index) {
           Category cat = entry.category![index];
           return Padding(
-            padding: const EdgeInsets.fromLTRB(0.0, 5.0, 5.0, 5.0),
+            padding: const EdgeInsets.only(
+                left: 0.0, top: 5.0, right: 5.0, bottom: 5.0),
             child: Container(
               decoration: BoxDecoration(
                 color: Theme.of(context).backgroundColor,

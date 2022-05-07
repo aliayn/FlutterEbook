@@ -145,8 +145,8 @@ class _$AppDAO extends AppDAO {
 
   @override
   Future<void> deleteFavorite(String id) async {
-    await _queryAdapter.queryNoReturn('DELETE * FROM Favorites WHERE id = ?1',
-        arguments: [id]);
+    await _queryAdapter
+        .queryNoReturn('DELETE FROM Favorites WHERE id = ?1', arguments: [id]);
   }
 
   @override
@@ -170,8 +170,8 @@ class _$AppDAO extends AppDAO {
 
   @override
   Future<void> deleteDownload(String id) async {
-    await _queryAdapter.queryNoReturn('DELETE * FROM Downloads WHERE id = ?1',
-        arguments: [id]);
+    await _queryAdapter
+        .queryNoReturn('DELETE FROM Downloads WHERE id = ?1', arguments: [id]);
   }
 
   @override
@@ -189,7 +189,7 @@ class _$AppDAO extends AppDAO {
   @override
   Future<void> deleteLocator(String id) async {
     await _queryAdapter
-        .queryNoReturn('DELETE * FROM Locator WHERE id = ?1', arguments: [id]);
+        .queryNoReturn('DELETE FROM Locator WHERE id = ?1', arguments: [id]);
   }
 
   @override

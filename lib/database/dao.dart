@@ -13,7 +13,7 @@ abstract class AppDAO {
   @Query('SELECT * FROM Favorites')
   Future<List<Favorite>> getAllFavorites();
 
-  @Query('DELETE * FROM Favorites WHERE id = :id')
+  @Query('DELETE FROM Favorites WHERE id = :id')
   Future<void> deleteFavorite(String id);
 
   @Query('SELECT * FROM Favorites WHERE id = :id')
@@ -27,7 +27,7 @@ abstract class AppDAO {
   @Query('SELECT * FROM Downloads')
   Future<List<Downloads>> getAllDownloads();
 
-  @Query('DELETE * FROM Downloads WHERE id = :id')
+  @Query('DELETE FROM Downloads WHERE id = :id')
   Future<void> deleteDownload(String id);
 
   @Query('SELECT * FROM Downloads WHERE id = :id')
@@ -38,7 +38,7 @@ abstract class AppDAO {
   @Insert(onConflict: OnConflictStrategy.replace)
   Future<void> insetLocator(Locator locator);
 
-  @Query('DELETE * FROM Locator WHERE id = :id')
+  @Query('DELETE FROM Locator WHERE id = :id')
   Future<void> deleteLocator(String id);
 
   @Query('SELECT * FROM Locator WHERE id = :id')

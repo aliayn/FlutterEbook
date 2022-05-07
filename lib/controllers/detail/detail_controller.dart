@@ -20,7 +20,7 @@ import '../../utils/const.dart';
 class DetailController extends BaseController {
   var apiRequestStatus = APIRequestStatus.loading.obs;
   var related = CategoryFeed().obs;
-  late Rx<Entry> entry;
+  var entry = Entry().obs;
   var faved = false.obs;
   var downloaded = false.obs;
 
@@ -28,6 +28,17 @@ class DetailController extends BaseController {
     apiRequestStatus(APIRequestStatus.loading);
     await _checkFav();
     await _checkDownload();
+    try {
+      CategoryFeed feed = await provider.getCustomApi(url);
+      related(feed);
+      apiRequestStatus(APIRequestStatus.loaded);
+    } catch (e) {
+      checkError(apiRequestStatus, e);
+    }
+  }
+
+  refreshFeed(String url) async {
+    apiRequestStatus(APIRequestStatus.loading);
     try {
       CategoryFeed feed = await provider.getCustomApi(url);
       related(feed);
@@ -61,7 +72,7 @@ class DetailController extends BaseController {
     }
   }
 
-  Future downloadFile(context) async {
+  downloadFile(context) async {
     PermissionStatus permission = await Permission.storage.status;
     String url = entry.value.link![3].href!;
     String filename =
@@ -73,13 +84,13 @@ class DetailController extends BaseController {
       await Permission.accessMediaLocation.request();
       // manage external storage needed for android 11/R
       await Permission.manageExternalStorage.request();
-      startDownload(context, url, filename);
+      _startDownload(context, url, filename);
     } else {
-      startDownload(context, url, filename);
+      _startDownload(context, url, filename);
     }
   }
 
-  startDownload(context, url, filename) async {
+  _startDownload(context, url, filename) async {
     Directory? appDocDir = Platform.isAndroid
         ? await getExternalStorageDirectory()
         : await getApplicationDocumentsDirectory();
