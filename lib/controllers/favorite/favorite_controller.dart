@@ -6,8 +6,12 @@ class FavoriteController extends BaseController {
   var favorites = <Favorite>[].obs;
 
   @override
-  void onReady() async {
-    favorites.assignAll(await provider.getAllFavorites());
+  void onReady() {
+    _getFavoritesList();
     super.onReady();
+  }
+
+  _getFavoritesList() {
+    provider.getAllFavorites().listen(favorites.addAll);
   }
 }

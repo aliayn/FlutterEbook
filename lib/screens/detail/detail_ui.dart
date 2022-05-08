@@ -244,6 +244,9 @@ Widget _buildDownloadReadButton(title, Function() function) =>
               child: Center(
                 child: Text(
                   title,
+                  style: const TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),

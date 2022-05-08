@@ -1,8 +1,9 @@
+import 'package:ebook_app/controllers/favorite/favorite_controller.dart';
 import 'package:ebook_app/screens/favorite/favorite_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
-class FavoritePage extends GetView {
+class FavoritePage extends GetView<FavoriteController> {
   const FavoritePage({Key? key}) : super(key: key);
 
   @override

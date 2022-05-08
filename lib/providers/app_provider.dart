@@ -23,7 +23,7 @@ class AppProvider extends GetxService {
 
   Future insetFavorite(Favorite favorite) =>_dbProvider.insetFavorite(favorite);
 
-  Future<List<Favorite>> getAllFavorites() => _dbProvider.getAllFavorites();
+  Stream<List<Favorite>> getAllFavorites() => _dbProvider.getAllFavorites();
 
   Future deleteFavorite(String id) => _dbProvider.deleteFavorite(id);
 

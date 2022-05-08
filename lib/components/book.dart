@@ -6,62 +6,60 @@ import 'package:uuid/uuid.dart';
 import '../models/category.dart';
 import '../routes/router.dart';
 
-const uuid = Uuid();
-final String imgTag = uuid.v4();
-final String titleTag = uuid.v4();
-final String authorTag = uuid.v4();
+Widget bookUI(
+    {required String img, required String title, required Entry entry}) {
+  const uuid = Uuid();
+  final String imgTag = uuid.v4();
+  final String titleTag = uuid.v4();
+  final String authorTag = uuid.v4();
 
-Widget bookUI({
-  required String img,
-  required String title,
-  required Entry entry,
-}) =>
-    InkWell(
-      onTap: () => geToDetailPage(
-        entry: entry,
-        imgTag: imgTag,
-        titleTag: titleTag,
-        authorTag: authorTag,
-      ),
-      child: Column(
-        children: <Widget>[
-          ClipRRect(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(10.0),
-            ),
-            child: Hero(
-              tag: imgTag,
-              child: CachedNetworkImage(
-                imageUrl: img,
-                placeholder: (context, url) => const LoadingWidget(
-                  isImage: true,
-                ),
-                errorWidget: (context, url, error) => Image.asset(
-                  'assets/images/place.png',
-                  fit: BoxFit.cover,
-                ),
+  return InkWell(
+    onTap: () => geToDetailPage(
+      entry: entry,
+      imgTag: imgTag,
+      titleTag: titleTag,
+      authorTag: authorTag,
+    ),
+    child: Column(
+      children: <Widget>[
+        ClipRRect(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(10.0),
+          ),
+          child: Hero(
+            tag: imgTag,
+            child: CachedNetworkImage(
+              imageUrl: img,
+              placeholder: (context, url) => const LoadingWidget(
+                isImage: true,
+              ),
+              errorWidget: (context, url, error) => Image.asset(
+                'assets/images/place.png',
                 fit: BoxFit.cover,
-                height: 150.0,
               ),
+              fit: BoxFit.cover,
+              height: 150.0,
             ),
           ),
-          const SizedBox(height: 5.0),
-          Hero(
-            tag: titleTag,
-            child: Material(
-              type: MaterialType.transparency,
-              child: Text(
-                title.replaceAll(r'\', ''),
-                style: const TextStyle(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
+        ),
+        const SizedBox(height: 5.0),
+        Hero(
+          tag: titleTag,
+          child: Material(
+            type: MaterialType.transparency,
+            child: Text(
+              title.replaceAll(r'\', ''),
+              style: const TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.bold,
               ),
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
-        ],
-      ),
-    );
+        ),
+      ],
+    ),
+  );
+}

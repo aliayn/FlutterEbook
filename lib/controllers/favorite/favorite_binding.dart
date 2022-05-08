@@ -4,6 +4,6 @@ import 'package:get/instance_manager.dart';
 class FavoriteBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<FavoriteController>(() => FavoriteController());
+    Get.lazyPut<FavoriteController>(() => FavoriteController(), fenix: true);
   }
 }

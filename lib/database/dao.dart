@@ -11,7 +11,7 @@ abstract class AppDAO {
   Future<void> insetFavorite(Favorite favorite);
 
   @Query('SELECT * FROM Favorites')
-  Future<List<Favorite>> getAllFavorites();
+  Stream<List<Favorite>> getAllFavorites();
 
   @Query('DELETE FROM Favorites WHERE id = :id')
   Future<void> deleteFavorite(String id);

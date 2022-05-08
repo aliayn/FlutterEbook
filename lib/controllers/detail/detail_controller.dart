@@ -145,7 +145,7 @@ class DetailController extends BaseController {
   addFav() async {
     await provider.insetFavorite(Favorite(
         id: entry.value.id!.t.toString(),
-        item: entry.value.toJson().toString()));
+        item: jsonEncode(entry.value.toJson())));
     _checkFav();
   }
 
@@ -157,7 +157,7 @@ class DetailController extends BaseController {
   openBook(context) async {
     var download = await provider.findDownload(entry.value.id!.t.toString());
     var locator = await provider.findLocator(entry.value.id!.t!.toString());
-    if (download != null && locator != null) {
+    if (download != null) {
       String path = download.path;
 
       EpubViewer.setConfig(
@@ -168,7 +168,9 @@ class DetailController extends BaseController {
         allowSharing: true,
       );
       EpubViewer.open(path,
-          lastLocation: EpubLocator.fromJson(jsonDecode(locator.data)));
+          lastLocation: locator != null
+              ? EpubLocator.fromJson(jsonDecode(locator.data))
+              : null);
       EpubViewer.locatorStream.listen((event) async {
         // Get locator here
         var bookID = entry.value.id!.t!.toString();

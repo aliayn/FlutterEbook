@@ -1,13 +1,14 @@
 import 'package:ebook_app/database/dao.dart';
 import 'package:ebook_app/database/database.dart';
 import 'package:ebook_app/models/downloads.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/state_manager.dart';
 
 import '../models/favorite.dart';
 import '../models/locator.dart';
 
 class DBProvider extends GetxService {
   final String _databaseName = "Ebook.db";
+  final Rx<bool> favDBChanged = Rx(false);
 
   DBProvider() {
     _initDB();
@@ -21,7 +22,8 @@ class DBProvider extends GetxService {
       return _appDatabase!;
     }
 
-    _appDatabase =await $FloorAppDatabase.databaseBuilder(_databaseName).build();
+    _appDatabase =
+        await $FloorAppDatabase.databaseBuilder(_databaseName).build();
     _appDAO = _appDatabase!.appDAO;
   }
 
@@ -31,17 +33,23 @@ class DBProvider extends GetxService {
 
 //--------------------------------Favorite------------------------------------
 
-  Future insetFavorite(Favorite favorite) =>_appDAO.insetFavorite(favorite);
+  Future insetFavorite(Favorite favorite) {
+    favDBChanged(true);
+    return _appDAO.insetFavorite(favorite);
+  }
 
-  Future<List<Favorite>> getAllFavorites() => _appDAO.getAllFavorites();
+  Stream<List<Favorite>> getAllFavorites() => _appDAO.getAllFavorites();
 
-  Future deleteFavorite(String id) => _appDAO.deleteFavorite(id);
+  Future deleteFavorite(String id) {
+    favDBChanged(true);
+    return _appDAO.deleteFavorite(id);
+  }
 
   Future<Favorite?> findFavorite(String id) => _appDAO.findFavorite(id);
 
 //------------------------------Downloads-------------------------------------
 
-  Future insetDownload(Downloads downloads) =>_appDAO.insetDownload(downloads);
+  Future insetDownload(Downloads downloads) => _appDAO.insetDownload(downloads);
 
   Future<List<Downloads>> getAllDownloads() => _appDAO.getAllDownloads();
 
@@ -51,7 +59,7 @@ class DBProvider extends GetxService {
 
 //------------------------------Locator-------------------------------------
 
-  Future insetLocator(Locator locator) =>_appDAO.insetLocator(locator);
+  Future insetLocator(Locator locator) => _appDAO.insetLocator(locator);
 
   Future deleteLocator(String id) => _appDAO.deleteLocator(id);
 

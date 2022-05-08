@@ -7,7 +7,14 @@ import 'package:get/get.dart';
 import '../../components/book.dart';
 import '../../models/category.dart';
 
-Widget favoriteUI() => Scaffold(body: _createBody());
+Widget favoriteUI() => Scaffold(
+    appBar: AppBar(
+      centerTitle: true,
+      title: const Text(
+        'Favorites',
+      ),
+    ),
+    body: _createBody());
 
 _createBody() => GetX<FavoriteController>(builder: ((controller) {
       if (controller.favorites.isEmpty) {
@@ -50,8 +57,7 @@ _buildGridView(controller) {
       childAspectRatio: 200 / 340,
     ),
     itemBuilder: (BuildContext context, int index) {
-      Entry entry =
-          Entry.fromJson(jsonDecode(controller.favorites[index].item));
+      var entry = Entry.fromJson(jsonDecode(controller.favorites[index].item));
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5.0),
         child: bookUI(

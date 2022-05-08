@@ -102,12 +102,13 @@ class _$AppDatabase extends AppDatabase {
 
 class _$AppDAO extends AppDAO {
   _$AppDAO(this.database, this.changeListener)
-      : _queryAdapter = QueryAdapter(database),
+      : _queryAdapter = QueryAdapter(database, changeListener),
         _favoriteInsertionAdapter = InsertionAdapter(
             database,
             'Favorites',
             (Favorite item) =>
-                <String, Object?>{'id': item.id, 'item': item.item}),
+                <String, Object?>{'id': item.id, 'item': item.item},
+            changeListener),
         _downloadsInsertionAdapter = InsertionAdapter(
             database,
             'Downloads',
@@ -137,10 +138,12 @@ class _$AppDAO extends AppDAO {
   final InsertionAdapter<Locator> _locatorInsertionAdapter;
 
   @override
-  Future<List<Favorite>> getAllFavorites() async {
-    return _queryAdapter.queryList('SELECT * FROM Favorites',
+  Stream<List<Favorite>> getAllFavorites() {
+    return _queryAdapter.queryListStream('SELECT * FROM Favorites',
         mapper: (Map<String, Object?> row) =>
-            Favorite(id: row['id'] as String, item: row['item'] as String));
+            Favorite(id: row['id'] as String, item: row['item'] as String),
+        queryableName: 'Favorites',
+        isView: false);
   }
 
   @override
