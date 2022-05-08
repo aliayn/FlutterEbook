@@ -12,6 +12,6 @@ class FavoriteController extends BaseController {
   }
 
   _getFavoritesList() {
-    provider.getAllFavorites().listen(favorites.addAll);
+    provider.getAllFavorites().listen(favorites.assignAll);
   }
 }

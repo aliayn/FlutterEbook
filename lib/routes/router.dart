@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 goToFavorite() => Get.toNamed(Routes.favorite);
 
-goToDownloads() {}
+goToDownloads() => Get.toNamed(Routes.download);
 
 goToGenrePage(title, url) => Get.toNamed(Routes.genre, arguments: [title, url]);
 

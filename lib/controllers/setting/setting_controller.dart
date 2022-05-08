@@ -12,8 +12,8 @@ class SettingController extends BaseController {
   }
 
   routeToFavorites() => goToFavorite();
-  
-  routeToDownloads() {}
+
+  routeToDownloads() => goToDownloads();
 
   showLocaleDialog() {}
 

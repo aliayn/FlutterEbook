@@ -176,7 +176,7 @@ class DetailController extends BaseController {
         var bookID = entry.value.id!.t!.toString();
         Map json = jsonDecode(event);
         json['bookId'] = bookID;
-        var locator = Locator(id: bookID, data: json.toString());
+        var locator = Locator(id: bookID, data: jsonEncode(json));
         // Save locator to your database
         await provider.insetLocator(locator);
       });
