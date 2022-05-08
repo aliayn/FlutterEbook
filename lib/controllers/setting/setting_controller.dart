@@ -17,5 +17,4 @@ class SettingController extends BaseController {
 
   showLocaleDialog() {}
 
-  showAboutDialog() {}
 }

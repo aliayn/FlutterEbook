@@ -25,7 +25,7 @@ Widget _buildBodyList(controller) {
       padding: EdgeInsets.only(top: 4.0.h),
       child: ListView(
         children: <Widget>[
-          const SizedBox(height: 20.0),
+          //const SizedBox(height: 20.0),
           _buildSectionTitle('Popular'),
           const SizedBox(height: 20.0),
           _buildFeaturedSection(controller),
