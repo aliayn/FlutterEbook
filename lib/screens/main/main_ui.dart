@@ -1,55 +1,82 @@
+import 'package:ebook_app/controllers/main/main_controller.dart';
 import 'package:ebook_app/screens/explore/explore_page.dart';
-import 'package:ebook_app/screens/main/custom_nav_bar_item.dart';
 import 'package:ebook_app/screens/setting/setting_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 
 import '../home/home_page.dart';
 
-PersistentTabController _controller = PersistentTabController(initialIndex: 0);
-
-Widget mainUI() => StatefulBuilder(
-    builder: ((context, setState) => Scaffold(
-          bottomNavigationBar: PersistentTabView.custom(context,
-              screens: _buildScreens(),
-              itemCount: 3,
-              controller: _controller,
-              confineInSafeArea: true,
-              resizeToAvoidBottomInset: true,
-              backgroundColor: Theme.of(context).primaryColor,
-              customWidget: CustomNavBarWidget(
-                  _controller.index, _navBarsItems(context), (index) {
-                setState(() {
-                  _controller.index =
-                      index; // NOTE: THIS IS CRITICAL!! Don't miss it!
-                });
-              })),
+Widget mainUI() => GetX<MainController>(
+    builder: ((controller) => Scaffold(
+          bottomNavigationBar: _buildBottomNavigationMenu(controller),
+          body: IndexedStack(
+            index: controller.tabIndex.value,
+            children: _buildScreens(),
+          ),
         )));
 
-List<Widget> _buildScreens() => [
-    const HomePage(),
-    const ExplorePage(),
-    const SettingPage(),
-  ];
+_buildScreens() => [
+      const HomePage(),
+      const ExplorePage(),
+      const SettingPage(),
+    ];
 
-List<PersistentBottomNavBarItem> _navBarsItems(context) => [
-    PersistentBottomNavBarItem(
-      icon: const Icon(CupertinoIcons.home),
-      title: ("Home"),
-      activeColorPrimary: Theme.of(context).colorScheme.secondary,
-      inactiveColorPrimary: CupertinoColors.systemGrey,
-    ),
-    PersistentBottomNavBarItem(
-      icon: const Icon(CupertinoIcons.compass),
-      title: ("Explore"),
-      activeColorPrimary: Theme.of(context).colorScheme.secondary,
-      inactiveColorPrimary: CupertinoColors.systemGrey,
-    ),
-    PersistentBottomNavBarItem(
-      icon: const Icon(CupertinoIcons.settings),
-      title: ("Settings"),
-      activeColorPrimary: Theme.of(context).colorScheme.secondary,
-      inactiveColorPrimary: CupertinoColors.systemGrey,
-    ),
-  ];
+final unselectedLabelStyle = TextStyle(
+    color: Colors.white.withOpacity(0.5),
+    fontWeight: FontWeight.w500,
+    fontSize: 12);
+
+const selectedLabelStyle =
+    TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 12);
+
+_buildBottomNavigationMenu(controller) => Builder(
+    builder: (context) => SizedBox(
+          height: 11.h,
+          child: BottomNavigationBar(
+            showUnselectedLabels: true,
+            showSelectedLabels: true,
+            onTap: controller.changeTabIndex,
+            currentIndex: controller.tabIndex.value,
+            backgroundColor: Theme.of(context).primaryColor,
+            unselectedItemColor: CupertinoColors.systemGrey,
+            selectedItemColor: Theme.of(context).colorScheme.secondary,
+            unselectedLabelStyle: unselectedLabelStyle,
+            selectedLabelStyle: selectedLabelStyle,
+            items: _navBarsItems(context),
+          ),
+        ));
+
+_navBarsItems(context) => <BottomNavigationBarItem>[
+      BottomNavigationBarItem(
+        label: ("Home"),
+        icon: Container(
+          margin: const EdgeInsets.only(bottom: 5),
+          child: const Icon(
+            CupertinoIcons.home,
+            size: 20.0,
+          ),
+        ),
+      ),
+      BottomNavigationBarItem(
+        label: ("Explore"),
+        icon: Container(
+          margin: const EdgeInsets.only(bottom: 5),
+          child: const Icon(
+            CupertinoIcons.compass,
+            size: 20.0,
+          ),
+        ),
+      ),
+      BottomNavigationBarItem(
+        label: ("Settings"),
+        icon: Container(
+          margin: const EdgeInsets.only(bottom: 5),
+          child: const Icon(
+            CupertinoIcons.settings,
+            size: 20.0,
+          ),
+        ),
+      ),
+    ];

@@ -30,7 +30,7 @@ _buildBodyList(DownloadController controller) {
         background: _dismissibleBackground(),
         onDismissed: (d) => controller.deleteBook(index),
         child: InkWell(
-          onTap: () {},
+          onTap: () => controller.openBook(index, context),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
             child: Row(
@@ -99,14 +99,11 @@ _buildBodyList(DownloadController controller) {
         ),
       );
     },
-    separatorBuilder: (BuildContext context, int index) {
-      return const Divider();
-    },
+    separatorBuilder: (BuildContext context, int index) => const Divider(),
   );
 }
 
-_buildEmptyListView() {
-  return Center(
+_buildEmptyListView() => Center(
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
@@ -125,10 +122,8 @@ _buildEmptyListView() {
       ],
     ),
   );
-}
 
-_dismissibleBackground() {
-  return Container(
+_dismissibleBackground() => Container(
     alignment: Alignment.centerRight,
     padding: const EdgeInsets.only(right: 20.0),
     color: Colors.red,
@@ -137,4 +132,3 @@ _dismissibleBackground() {
       color: Colors.white,
     ),
   );
-}
