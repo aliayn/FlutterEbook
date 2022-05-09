@@ -1,9 +1,14 @@
 import 'package:ebook_app/controllers/setting/setting_controller.dart';
+//import 'package:ebook_app/models/category.dart';
+import 'package:ebook_app/utils/color_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:getwidget/getwidget.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/link.dart';
 
 settingUI() => Scaffold(
       body: _createBody(),
@@ -49,17 +54,17 @@ _createItems(controller, position, context) {
 }
 
 _buildItem(icon, title, function) => ListTile(
-      leading: Icon(icon),
+      leading: FaIcon(icon, size: 30),
       title: Text(title),
       onTap: function,
     );
 
 _buildThemeItem(controller, icon, title) => SwitchListTile(
-        secondary: Icon(icon),
-        title: Text(title),
-        value: controller.themeMode.value,
-        onChanged: (v) => controller.switchTheme,
-      );
+      secondary: Icon(icon, size: 30),
+      title: Text(title),
+      value: controller.themeMode.value,
+      onChanged: (v) => controller.switchTheme(),
+    );
 
 _showAboutDialog(context) async {
   var packageInfo = await PackageInfo.fromPlatform();
@@ -67,15 +72,64 @@ _showAboutDialog(context) async {
     context: context,
     applicationVersion: packageInfo.version,
     applicationName: packageInfo.appName,
-    applicationIcon: Image.asset(
-      'assets/images/app-icon.png',
-      height: 20.0,
-      width: 20.0,
-    ),
     children: <Widget>[
       const Padding(
-          padding: EdgeInsets.only(top: 15),
-          child: Text('Awesome eBook app by Ali Aynechian'))
+          padding: EdgeInsets.only(top: 15, bottom: 15),
+          child: Text('Awesome eBook app by Ali Aynechian')),
+      Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: GFIconButton(
+              onPressed: () {},
+              type: GFButtonType.outline,
+              color: HexColor.fromHex('#3b5998'),
+              icon: const FaIcon(FontAwesomeIcons.facebook),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Link(
+              uri: Uri.parse('https://flutter.dev/'),
+              builder: ((context, followLink) => GFIconButton(
+                onPressed: followLink,
+                type: GFButtonType.outline,
+                color: HexColor.fromHex('#43d854'),
+                icon: const Icon(FontAwesomeIcons.whatsapp),
+              )),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: GFIconButton(
+              onPressed: () {},
+              type: GFButtonType.outline,
+              color: HexColor.fromHex('#3f729b'),
+              icon: const Icon(FontAwesomeIcons.instagram),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: GFIconButton(
+              onPressed: () {},
+              type: GFButtonType.outline,
+              color: HexColor.fromHex('#0077b5'),
+              icon: const Icon(FontAwesomeIcons.linkedin),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: GFIconButton(
+              onPressed: () {},
+              type: GFButtonType.outline,
+              color: HexColor.fromHex('#00405d'),
+              icon: const Icon(FontAwesomeIcons.github),
+            ),
+          ),
+        ],
+      ),
     ],
   );
 }

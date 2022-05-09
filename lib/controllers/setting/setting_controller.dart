@@ -15,6 +15,6 @@ class SettingController extends BaseController {
 
   routeToDownloads() => goToDownloads();
 
-  showLocaleDialog() {}
-
+  showLocaleDialog(context) =>
+      Get.snackbar('Language', 'This feature is under construction');
 }
