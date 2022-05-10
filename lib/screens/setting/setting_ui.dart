@@ -49,7 +49,7 @@ _createItems(controller, position, context) {
 
     case 3:
       return _buildItem(CupertinoIcons.location_circle, 'Language',
-          () => controller.showLocaleDialog());
+          () => controller.showLocaleDialog(context));
 
     case 4:
       return _buildItem(
