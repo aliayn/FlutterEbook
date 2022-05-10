@@ -12,6 +12,8 @@ are from the [Public Domain](https://en.wikipedia.org/wiki/Public_domain)
 <a href="http://www.feedbooks.com/"><img src="screenshots/logo_feedbooks.png" width="200"/></a>
 <br>
 
+To download  the apk file of this app, <a href="https://drive.google.com/file/d/11m8Xj7gr2IS6Lp9RIrQ18CFMZGd4RzNd/view?usp=sharing">click here</a>
+
 
 ## Features 
 - API REST (Feedbooks)
