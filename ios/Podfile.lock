@@ -35,6 +35,8 @@ PODS:
     - Flutter
     - FMDB (>= 2.7.5)
   - SSZipArchive (2.2.3)
+  - url_launcher_ios (0.0.1):
+    - Flutter
   - ZFDragableModalTransition (0.6)
 
 DEPENDENCIES:
@@ -46,6 +48,7 @@ DEPENDENCIES:
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - share (from `.symlinks/plugins/share/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
+  - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
 
 SPEC REPOS:
   trunk:
@@ -76,6 +79,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/share/ios"
   sqflite:
     :path: ".symlinks/plugins/sqflite/ios"
+  url_launcher_ios:
+    :path: ".symlinks/plugins/url_launcher_ios/ios"
 
 SPEC CHECKSUMS:
   AEXML: 2fbb73d8724797ed2cde888731e176fa4d44dd83
@@ -94,6 +99,7 @@ SPEC CHECKSUMS:
   share: 0b2c3e82132f5888bccca3351c504d0003b3b410
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
+  url_launcher_ios: 839c58cdb4279282219f5e248c3321761ff3c4de
   ZFDragableModalTransition: 0d294eaaba6edfcb9839595de765f9ca06a4b524
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c

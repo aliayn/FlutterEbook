@@ -8,7 +8,12 @@ import 'package:sizer/sizer.dart';
 import '../../components/body_builder.dart';
 import '../../models/category.dart';
 
-Widget homeUI() => Scaffold(body: _buildBody());
+Widget homeUI() => Scaffold(
+    appBar: AppBar(
+      centerTitle: true,
+      title: const Text('Home'),
+    ),
+    body: _buildBody());
 
 Widget _buildBody() => GetX<HomeController>(
       builder: (controller) => BodyBuilder(

@@ -12,6 +12,10 @@ import '../../models/category.dart';
 final _exploreController = Get.find<ExploreController>();
 
 Widget exploreUI() => Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text('Settings'),
+      ),
       body: _buildBody(),
     );
 

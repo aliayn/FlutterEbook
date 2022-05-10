@@ -1,5 +1,4 @@
 import 'package:ebook_app/controllers/setting/setting_controller.dart';
-//import 'package:ebook_app/models/category.dart';
 import 'package:ebook_app/utils/color_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,13 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/link.dart';
 
+import '../../utils/const.dart';
+
 settingUI() => Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text('Settings'),
+      ),
       body: _createBody(),
     );
 
@@ -82,50 +87,62 @@ _showAboutDialog(context) async {
         children: [
           Padding(
             padding: const EdgeInsets.all(4.0),
-            child: GFIconButton(
-              onPressed: () {},
-              type: GFButtonType.outline,
-              color: HexColor.fromHex('#3b5998'),
-              icon: const FaIcon(FontAwesomeIcons.facebook),
+            child: Link(
+              uri: Uri.parse(facebookAddress),
+              builder: (context, followLink) => GFIconButton(
+                onPressed: followLink,
+                type: GFButtonType.outline,
+                color: HexColor.fromHex('#3b5998'),
+                icon: const FaIcon(FontAwesomeIcons.facebook),
+              ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: Link(
-              uri: Uri.parse('https://flutter.dev/'),
+              uri: Uri.parse(whatsappAddress),
               builder: ((context, followLink) => GFIconButton(
+                    onPressed: followLink,
+                    type: GFButtonType.outline,
+                    color: HexColor.fromHex('#43d854'),
+                    icon: const Icon(FontAwesomeIcons.whatsapp),
+                  )),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Link(
+              uri: Uri.parse(twitterAddress),
+              builder: ((context, followLink) => GFIconButton(
+                    onPressed: followLink,
+                    type: GFButtonType.outline,
+                    color: HexColor.fromHex('#3f729b'),
+                    icon: const Icon(FontAwesomeIcons.twitter),
+                  )),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Link(
+              uri: Uri.parse(linkedinAddress),
+              builder: (context, followLink) => GFIconButton(
                 onPressed: followLink,
                 type: GFButtonType.outline,
-                color: HexColor.fromHex('#43d854'),
-                icon: const Icon(FontAwesomeIcons.whatsapp),
-              )),
+                color: HexColor.fromHex('#0077b5'),
+                icon: const Icon(FontAwesomeIcons.linkedin),
+              ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(4.0),
-            child: GFIconButton(
-              onPressed: () {},
-              type: GFButtonType.outline,
-              color: HexColor.fromHex('#3f729b'),
-              icon: const Icon(FontAwesomeIcons.instagram),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: GFIconButton(
-              onPressed: () {},
-              type: GFButtonType.outline,
-              color: HexColor.fromHex('#0077b5'),
-              icon: const Icon(FontAwesomeIcons.linkedin),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: GFIconButton(
-              onPressed: () {},
-              type: GFButtonType.outline,
-              color: HexColor.fromHex('#00405d'),
-              icon: const Icon(FontAwesomeIcons.github),
+            child: Link(
+              uri: Uri.parse(githubAddress),
+              builder: (context, followLink) => GFIconButton(
+                onPressed: followLink,
+                type: GFButtonType.outline,
+                color: HexColor.fromHex('#00405d'),
+                icon: const Icon(FontAwesomeIcons.github),
+              ),
             ),
           ),
         ],
